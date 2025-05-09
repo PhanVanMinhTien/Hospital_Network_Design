@@ -6,9 +6,18 @@ vlan 60
 name KHOA_SINH_HOA
 exit
 
-interface range Fa0/1-24
+vlan 106
+name GUEST_C2
+exit
+
+interface range Fa0/1-23
 switchport mode access
 switchport access vlan 60
+spanning-tree portfast
+exit
+interface Fa0/24
+switchport mode access
+switchport access vlan 106
 spanning-tree portfast
 exit
 

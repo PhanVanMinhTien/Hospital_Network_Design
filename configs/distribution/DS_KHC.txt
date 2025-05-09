@@ -32,6 +32,10 @@ exit
 vlan 49
 name DV_DICH_VU
 exit
+vlan 104
+name GUEST_KHC
+exit
+
 !----------------------------------------------------------
 interface range Gi 1/0/1-7
 switchport mode trunk
@@ -89,6 +93,12 @@ interface vlan 49
 ip address 192.168.49.1 255.255.255.0
 no shutdown
 exit
+
+interface vlan 104
+ip address 192.168.104.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
 !----------------------------------------------------------
 int Gi 1/0/23
 no switchport 
@@ -118,4 +128,6 @@ network 192.168.46.0 0.0.0.255 area 0
 network 192.168.47.0 0.0.0.255 area 0
 network 192.168.48.0 0.0.0.255 area 0
 network 192.168.49.0 0.0.0.255 area 0
+
+network 192.168.104.0 0.0.0.255 area 0
 exit

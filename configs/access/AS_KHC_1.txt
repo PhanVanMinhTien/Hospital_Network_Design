@@ -8,9 +8,19 @@ vlan 40
 name PHONG_HANH_CHINH
 exit
 
-interface range Fa0/1-24
+vlan 104
+name GUEST_KHC
+exit
+
+interface range Fa0/1-23
 switchport mode access
 switchport access vlan 40
+spanning-tree portfast
+exit
+
+int Fa0/24
+switchport mode access
+switchport access vlan 104
 spanning-tree portfast
 exit
 

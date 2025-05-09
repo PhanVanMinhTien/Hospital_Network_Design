@@ -22,6 +22,9 @@ exit
 vlan 65
 name KHOA_SIEU_AM_TDCN
 exit
+vlan 106
+name GUEST_C2
+exit
 
 int range Gi 1/0/1-6
 switchport mode trunk
@@ -79,7 +82,11 @@ standby 65 preempt
 no shutdown
 exit
 
-
+int vlan 106
+ip address 192.168.106.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
 
 
 !----------------------------------------------------------
@@ -119,6 +126,7 @@ network 192.168.62.0 0.0.0.255 area 0
 network 192.168.63.0 0.0.0.255 area 0
 network 192.168.64.0 0.0.0.255 area 0
 network 192.168.65.0 0.0.0.255 area 0
+network 192.168.106.0 0.0.0.255 area 0
 exit
 
 

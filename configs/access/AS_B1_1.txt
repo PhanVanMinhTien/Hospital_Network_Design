@@ -11,6 +11,7 @@ exit
 vlan 21
 name KHOA_HS_Ng_TK
 exit
+
 vlan 101
 name GUEST_B1
 exit

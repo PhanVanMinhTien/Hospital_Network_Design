@@ -21,15 +21,25 @@ vlan 34
 name KHOA_NOI_TQ
 exit
 
+vlan 103
+name GUEST_B3
+exit
+
 interface range Fa0/1-12
 switchport mode access
 switchport access vlan 31
 spanning-tree portfast
 exit
 
-interface range Fa0/13-24
+interface range Fa0/13-23
 switchport mode access
 switchport access vlan 32
+spanning-tree portfast
+exit
+
+interface Fa0/24
+switchport mode access
+switchport access vlan 103
 spanning-tree portfast
 exit
 

@@ -20,6 +20,11 @@ exit
 vlan 34
 name KHOA_NOI_TQ
 exit
+
+vlan 103
+name GUEST_B3
+exit
+
 !----------------------------------------------------------
 
 int range Gi1/0/1-2
@@ -46,6 +51,11 @@ interface vlan 34
 ip address 192.168.34.1 255.255.255.0
 no shutdown
 
+interface vlan 102
+ip address 192.168.102.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
 !----------------------------------------------------------
 interface Gi 1/0/23
 no switchport
@@ -71,4 +81,5 @@ network 192.168.32.0 0.0.0.255 area 0
 network 192.168.33.0 0.0.0.255 area 0
 network 192.168.34.0 0.0.0.255 area 0
 
+network 192.168.103.0 0.0.0.255
 exit

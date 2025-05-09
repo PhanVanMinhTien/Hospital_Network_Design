@@ -32,6 +32,10 @@ vlan 56
 name KHOA_KSNK
 exit
 
+vlan 105
+name GUEST_C1
+exit
+
 int range Gi1/0/1-7
 switchport mode trunk
 exit 
@@ -68,6 +72,12 @@ ip address 192.168.56.1 255.255.255.0
 no shutdown
 exit 
 
+interface vlan 105
+ip address 192.168.105.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+
 
 !----------------------------------------------------------
 interface Gi 1/0/23
@@ -94,5 +104,7 @@ network 192.168.53.0 0.0.0.255 area 0
 network 192.168.54.0 0.0.0.255 area 0
 network 192.168.55.0 0.0.0.255 area 0
 network 192.168.56.0 0.0.0.255 area 0
+
+network 192.168.105.0 0.0.0.255 area 0
 exit
 

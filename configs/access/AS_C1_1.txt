@@ -6,9 +6,15 @@ vlan 50
 name KHOA_VLTL
 exit
 
-interface range Fa0/1-24
+interface range Fa0/1-23
 switchport mode access
 switchport access vlan 50
+spanning-tree portfast
+exit
+
+interface Fa0/24
+switchport mode access
+switchport access vlan 105
 spanning-tree portfast
 exit
 

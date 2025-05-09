@@ -2,7 +2,7 @@
 !----------------------------------------------------------
 en
 conf t
-hostname MLS-C3
+hostname DS-C3
 
 vlan 60
 name KHOA_SINH_HOA
@@ -21,6 +21,10 @@ name KHOA_NOI_SOI
 exit
 vlan 65
 name KHOA_SIEU_AM_TDCN
+exit
+
+vlan 107
+name GUEST_C3
 exit
 
 int range Gi 1/0/1-6
@@ -79,6 +83,14 @@ standby 65 preempt
 no shutdown
 exit
 
+int vlan 107
+ip address 192.168.107.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+
+
+
 int Gi 1/0/23
 no switchport
 ip address 16.16.16.6 255.255.255.252
@@ -123,3 +135,6 @@ spanning-tree vlan 62 priority 8192
 spanning-tree vlan 63 priority 8192
 spanning-tree vlan 64 priority 4096
 spanning-tree vlan 65 priority 4096
+
+
+

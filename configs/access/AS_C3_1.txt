@@ -5,13 +5,20 @@ hostname C3-AS-1
 vlan 64
 name KHOA_NOI_SOI
 exit
+vlan 107
+name GUEST_C3
+exit
 
-interface range Fa0/1-24
+interface range Fa0/1-23
 switchport mode access
 switchport access vlan 64
 spanning-tree portfast
 exit
-
+interface Fa0/23
+switchport mode access
+switchport access vlan 107
+spanning-tree portfast
+exit
 interface Gi0/1
 description Uplink to MLS C3
 switchport mode trunk
