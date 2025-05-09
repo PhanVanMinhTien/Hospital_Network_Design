@@ -1,0 +1,75 @@
+!THIS IS THE MLS OF BUILDING F
+!
+en
+conf t
+hostname DS-F
+
+vlan 81
+name KHOA_DIEU_TRI_TYC
+exit
+
+vlan 82
+name KHOA_NOI_TIET
+exit
+
+vlan 83
+name KHOA_KHAM_XUAT_CANH
+exit
+
+vlan 110
+name GUEST_F
+exit
+
+!
+int range Gi 1/0/1-3
+switchport mode trunk
+exit
+
+!
+ip routing
+
+interface vlan 81
+ip address 192.168.81.1 255.255.255.0
+no shutdown
+exit
+interface vlan 82
+ip address 192.168.82.1 255.255.255.0
+no shutdown
+exit
+interface vlan 83
+ip address 192.168.83.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 110
+ip address 192.168.110.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+
+
+int Gi 1/0/24
+no switchport
+ip address 19.19.19.2 255.255.255.252
+no shut
+exit
+
+int Gi 1/0/23
+no switchport
+ip add 19.19.19.6 255.255.255.252
+no shut
+exit
+
+router ospf 1
+router-id 11.11.11.11
+network 19.19.19.0 0.0.0.3 area 0
+network 19.19.19.4 0.0.0.3 area 0
+
+network 192.168.81.0 0.0.0.255 area 0
+network 192.168.82.0 0.0.0.255 area 0
+network 192.168.83.0 0.0.0.255 area 0
+
+network 192.168.110.0 0.0.0.255 area 0
+exit
+ 
+

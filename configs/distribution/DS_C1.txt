@@ -1,0 +1,98 @@
+! THIS IS THE MLS OF BUILDING C1
+!----------------------------------------------------------
+en
+conf t
+hostname DS-C1
+
+vlan 50
+name KHOA_VLTL
+exit
+
+vlan 51
+name KHOA_PT_GMHS
+exit
+
+vlan 52
+name KHOA_HS_PTT
+exit
+
+vlan 53
+name KHOA_PTMM
+exit
+
+vlan 54
+name KHOA_NOI_TIM_MACH
+exit
+
+vlan 55
+name KHOA_TMCT_DVNH
+exit
+
+vlan 56
+name KHOA_KSNK
+exit
+
+int range Gi1/0/1-7
+switchport mode trunk
+exit 
+
+!----------------------------------------------------------
+ip routing
+interface vlan 50
+ip address 192.168.50.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 51
+ip address 192.168.51.1 255.255.255.0
+no shutdown
+exit
+interface vlan 52
+ip address 192.168.52.1 255.255.255.0
+no shutdown
+exit
+interface vlan 53
+ip address 192.168.53.1 255.255.255.0
+no shutdown
+exit
+interface vlan 54
+ip address 192.168.54.1 255.255.255.0
+no shutdown
+exit
+interface vlan 55
+ip address 192.168.55.1 255.255.255.0
+no shutdown
+exit
+interface vlan 56
+ip address 192.168.56.1 255.255.255.0
+no shutdown
+exit 
+
+
+!----------------------------------------------------------
+interface Gi 1/0/23
+no switchport
+ip address 14.14.14.6 255.255.255.252
+no shutdown
+exit
+
+interface Gi 1/0/24
+no switchport
+ip address 14.14.14.2 255.255.255.252
+no shutdown
+exit
+!----------------------------------------------------------
+router ospf 1
+router-id 6.6.6.6
+network 14.14.14.0 0.0.0.3 area 0
+network 14.14.14.4 0.0.0.3 area 0
+
+network 192.168.50.0 0.0.0.255 area 0
+network 192.168.51.0 0.0.0.255 area 0
+network 192.168.52.0 0.0.0.255 area 0
+network 192.168.53.0 0.0.0.255 area 0
+network 192.168.54.0 0.0.0.255 area 0
+network 192.168.55.0 0.0.0.255 area 0
+network 192.168.56.0 0.0.0.255 area 0
+exit
+

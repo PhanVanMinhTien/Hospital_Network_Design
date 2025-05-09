@@ -1,0 +1,151 @@
+! THIS IS THE MLS OF BUILDING B1
+
+!----------------------------------------------------------
+en
+conf t
+hostname DS-B1
+
+vlan 20
+name KHOA_HS_CAP_CUU
+exit
+vlan 21
+name KHOA_HS_Ng_TK
+exit
+vlan 22
+name KHOA_CTSN
+exit 
+vlan 23
+name KHOA_Ng_TK
+exit
+vlan 24
+name KHOA_Ng_TH
+exit
+vlan 25
+name KHOA_Ng_TNIEU
+exit
+vlan 26
+name KHOA_TAI_MUI_HONG
+exit
+vlan 27
+name KHOA_Ng_LNGUC
+exit
+vlan 28
+name KHOA_NOI_PHOI
+exit
+vlan 29
+name KHOA_NOI_TQ
+exit
+vlan 30
+name KHOA_NOI_TQ_QTE
+exit
+vlan 101
+name GUEST_B1
+exit
+
+int range Gi1/0/1-9
+switchport mode trunk
+exit 
+
+!----------------------------------------------------------
+ip routing 
+interface vlan 20
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 21
+ip address 192.168.21.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 22
+ip address 192.168.22.1 255.255.255.0
+no shut
+exit
+
+interface vlan 23
+ip address 192.168.23.1 255.255.255.0
+no shut
+exit
+
+interface vlan 24
+ip address 192.168.24.1 255.255.255.0
+no shut
+exit
+
+interface vlan 25
+ip address 192.168.25.1 255.255.255.0
+no shut
+exit
+
+interface vlan 26
+ip address 192.168.26.1 255.255.255.0
+no shut
+exit
+
+interface vlan 27
+ip address 192.168.27.1 255.255.255.0
+no shut
+exit
+
+interface vlan 28
+ip address 192.168.28.1 255.255.255.0
+no shut
+exit
+
+interface vlan 29
+ip address 192.168.29.1 255.255.255.0
+no shut
+exit
+
+interface vlan 30
+ip address 192.168.30.1 255.255.255.0
+no shut
+exit
+
+int vlan 101
+ip address 192.168.101.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+!...
+
+!----------------------------------------------------------
+interface Gi 1/0/23
+no switchport
+ip address 11.11.11.6 255.255.255.252
+no shutdown
+exit
+
+interface Gi 1/0/24
+no switchport
+ip address 11.11.11.2 255.255.255.252
+no shutdown
+exit
+
+! OSPF
+router ospf 1
+router-id 3.3.3.3
+network 11.11.11.0 0.0.0.3 area 0
+network 11.11.11.6 0.0.0.3 area 0
+
+network 192.168.20.0 0.0.0.255 area 0
+network 192.168.21.0 0.0.0.255 area 0
+network 192.168.22.0 0.0.0.255 area 0
+network 192.168.23.0 0.0.0.255 area 0
+network 192.168.24.0 0.0.0.255 area 0
+network 192.168.25.0 0.0.0.255 area 0
+network 192.168.26.0 0.0.0.255 area 0
+network 192.168.27.0 0.0.0.255 area 0
+network 192.168.28.0 0.0.0.255 area 0
+network 192.168.29.0 0.0.0.255 area 0
+network 192.168.30.0 0.0.0.255 area 0
+
+network 192.168.101.0 0.0.0.255 area 0
+exit
+
+
+
+
+
+

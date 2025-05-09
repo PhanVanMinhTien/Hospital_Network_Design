@@ -1,0 +1,91 @@
+!THIS IS THE MLS OF BUILDING D
+!
+
+en
+conf t
+hostname DS-D
+
+vlan 66
+name TRUNG_TAM_UNG_BUU
+exit
+
+vlan 67
+name KHOA_Y_HOC_HAT_NHAN
+exit
+
+vlan 68
+name KHOA_TAO_HINH_THAM_MY
+exit
+
+vlan 69
+name KHOA_NOI_THAN
+exit
+
+vlan 108
+name GUEST_D
+exit
+
+!
+int range Gi 1/0/1-4
+switchport mode trunk
+exit
+
+!
+ip routing
+
+interface vlan 66
+ip address 192.168.66.1 255.255.255.0
+no ip helper-address 192.168.20.15
+no shutdown
+exit
+interface vlan 67
+ip address 192.168.67.1 255.255.255.0
+no ip helper-address 192.168.20.15
+no shutdown
+exit
+interface vlan 68
+ip address 192.168.68.1 255.255.255.0
+no ip helper-address 192.168.20.15
+no shutdown
+exit
+interface vlan 69
+ip address 192.168.69.1 255.255.255.0
+no ip helper-address 192.168.20.15
+no shutdown
+exit
+
+
+int vlan 108
+description WIFI_GUEST_D
+ip address 192.168.108.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shut
+exit
+
+int Gi 1/0/24
+no switchport 
+ip address 17.17.17.2 255.255.255.252
+no shut
+exit
+
+int Gi 1/0/23
+no switchport
+ip address 17.17.17.6 255.255.255.252
+no shut
+exit
+
+!
+router ospf 1
+router-id 9.9.9.9
+network 17.17.17.0 0.0.0.3 area 0
+network 17.17.17.4 0.0.0.3 area 0
+
+network 192.168.66.0 0.0.0.255 area 0
+network 192.168.67.0 0.0.0.255 area 0
+network 192.168.68.0 0.0.0.255 area 0
+network 192.168.69.0 0.0.0.255 area 0
+network 192.168.108.0 0.0.0.255 area 0
+exit
+
+
+

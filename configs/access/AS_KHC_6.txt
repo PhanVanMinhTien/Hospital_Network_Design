@@ -1,0 +1,31 @@
+
+!----------------------------------------------------------
+en
+conf t 
+hostname HS_SW_6
+!----------------------------------------------------------
+vlan 45
+name PHONG_BVCTNB_BVE
+exit
+vlan 46
+name PHONG_QLY_CHAT_LUONG
+exit
+
+
+interface range Fa0/1-12
+switchport mode access
+switchport access vlan 45
+spanning-tree portfast
+exit
+
+interface range Fa0/13-24
+switchport mode access
+switchport access vlan 46
+spanning-tree portfast
+exit
+
+!----------------------------------------------------------
+int Gi 0/1
+description Uplink to MLS_HANH_CHINH
+switchport mode trunk
+exit

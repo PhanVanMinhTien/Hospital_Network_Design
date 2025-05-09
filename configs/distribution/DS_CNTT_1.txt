@@ -1,0 +1,37 @@
+! THIS IS THE MLS OF CNTT
+!----------------------------------------------------------
+en
+conf t
+hostname DS-CNTT
+
+vlan 99
+name IT
+exit
+vlan 111
+name CAMERA
+exit
+
+int range Gi 1/0/1-2
+switchport mode trunk
+exit
+
+ip routing
+
+int vlan 99
+ip address 192.168.99.1 255.255.255.0
+no shutdown
+exit
+
+int Gi 1/0/24
+no switchport
+ip address 20.20.20.6 255.255.255.252
+no shutdown
+exit
+
+
+router ospf 1
+router-id 20.20.20.3
+network 20.20.20.4 0.0.0.3 area 0
+network 192.168.99.0 0.0.0.255 area 0
+
+exit

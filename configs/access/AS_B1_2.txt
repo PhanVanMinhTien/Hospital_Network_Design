@@ -1,0 +1,40 @@
+!THIS IS THE ACCESS SWITCH No 2 of BUILDING B1
+!
+!----------------------------------------------------------
+en
+conf t
+hostname B1_SW_2
+
+vlan 22
+name KHOA_CTSN
+exit 
+vlan 23
+name KHOA_Ng_TK
+exit
+vlan 101
+name GUEST_B1
+exit
+
+!----------------------------------------------------------
+interface range Fa0/1-12
+switchport mode access
+switchport access vlan 22
+spanning-tree portfast
+exit
+
+interface range Fa0/13-23
+switchport mode access
+switchport access vlan 23
+spanning-tree portfast
+exit
+
+interface Fa0/24
+switchport mode access
+switchport access vlan 101
+spanning-tree portfast
+exit
+!----------------------------------------------------------
+int Gi 0/1
+description Uplink to MLS B1
+switchport mode trunk
+exit

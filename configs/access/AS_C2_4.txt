@@ -1,0 +1,22 @@
+en
+conf t
+hostname C2-AS-4
+
+vlan 63
+name KHOA_DINH_DUONG
+exit
+
+interface range Fa0/1-24
+switchport mode access
+switchport access vlan 63
+spanning-tree portfast
+exit
+
+interface Gi0/1
+description Uplink to MLS C2
+switchport mode trunk
+exit
+interface Gi0/2
+description Uplink to MLS C3
+switchport mode trunk
+exit

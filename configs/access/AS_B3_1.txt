@@ -1,0 +1,41 @@
+!
+
+!----------------------------------------------------------
+en
+conf t
+hostname B3-SW-1
+
+vlan 31
+name KHOA_NOI_TK_VA_TDCN
+exit 
+
+vlan 32
+name KHOA_GAN_MAT_TUY
+exit
+
+vlan 33
+name KHOA_CTCH
+exit
+
+vlan 34
+name KHOA_NOI_TQ
+exit
+
+interface range Fa0/1-12
+switchport mode access
+switchport access vlan 31
+spanning-tree portfast
+exit
+
+interface range Fa0/13-24
+switchport mode access
+switchport access vlan 32
+spanning-tree portfast
+exit
+
+!----------------------------------------------------------
+interface Gi0/1
+description Uplink to MLS B3
+switchport mode trunk
+exit
+

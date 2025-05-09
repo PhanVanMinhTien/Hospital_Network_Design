@@ -1,0 +1,31 @@
+!
+!
+
+en
+conf t
+hostname AS-D-1
+
+vlan 66
+name TRUNG_TAM_UNG_BUU
+exit
+
+vlan 108
+name GUEST_D
+exit
+
+int range Fa0/1-23
+switchport mode access
+switchport access vlan 66
+spanning-tree portfast
+exit
+
+int Fa0/24
+switchport mode access
+switchport access vlan 108
+spanning-tree portfast
+exit
+
+int Gi0/1
+description Uplink to MLS A
+switchport mode trunk
+exit

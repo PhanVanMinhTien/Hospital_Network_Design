@@ -1,0 +1,74 @@
+!THIS IS THE MLS OF BUILDING B3
+
+!----------------------------------------------------------
+en
+conf t
+hostname DS-B3
+
+vlan 31
+name KHOA_NOI_TK_VA_TDCN
+exit 
+
+vlan 32
+name KHOA_GAN_MAT_TUY
+exit
+
+vlan 33
+name KHOA_CTCH
+exit
+
+vlan 34
+name KHOA_NOI_TQ
+exit
+!----------------------------------------------------------
+
+int range Gi1/0/1-2
+switchport mode trunk
+exit 
+
+
+!----------------------------------------------------------
+ip routing 
+
+interface vlan 31
+ip address 192.168.31.1 255.255.255.0
+no shutdown
+
+interface vlan 32
+ip address 192.168.32.1 255.255.255.0
+no shutdown
+
+interface vlan 33
+ip address 192.168.33.1 255.255.255.0
+no shutdown
+
+interface vlan 34
+ip address 192.168.34.1 255.255.255.0
+no shutdown
+
+!----------------------------------------------------------
+interface Gi 1/0/23
+no switchport
+ip address 12.12.12.6 255.255.255.252
+no shutdown
+exit
+
+interface Gi 1/0/24
+no switchport
+ip address 12.12.12.2 255.255.255.252
+no shutdown
+exit
+
+
+! OSPF
+router ospf 1
+router-id 4.4.4.4
+network 12.12.12.0 0.0.0.3 area 0
+network 12.12.12.4 0.0.0.3 area 0
+
+network 192.168.31.0 0.0.0.255 area 0
+network 192.168.32.0 0.0.0.255 area 0
+network 192.168.33.0 0.0.0.255 area 0
+network 192.168.34.0 0.0.0.255 area 0
+
+exit

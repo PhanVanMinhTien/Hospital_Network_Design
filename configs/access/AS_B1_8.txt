@@ -1,0 +1,30 @@
+!THIS IS THE ACCESS SWITCH No 8 of BUILDING B1
+!
+!---------------------------------------------------------
+en
+conf t
+hostname B1_SW_8
+
+vlan 29
+name KHOA_NOI_TQ
+exit
+vlan 101
+name GUEST_B1
+exit
+
+interface range Fa0/1-23
+switchport mode access
+switchport access vlan 29
+spanning-tree portfast
+exit
+
+interface Fa0/24
+switchport mode access
+switchport access vlan 101
+spanning-tree portfast
+exit
+!----------------------------------------------------------
+int Gi 0/1
+description Uplink to MLS B1
+switchport mode trunk
+exit

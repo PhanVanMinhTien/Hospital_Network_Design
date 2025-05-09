@@ -1,0 +1,103 @@
+!THIS IS THE MLS OF BUILDING A
+!----------------------------------------------------------
+en
+conf t
+hostname DS-A
+
+vlan 10
+name KHOA_CAP_CUU
+exit
+
+vlan 11
+name KHOA_KHAM_BENH
+exit
+
+vlan 12
+name KHOA_CHAM_SOC_SK_BAN_DAU
+exit
+
+vlan 13
+name KHOA_MAT
+exit
+
+vlan 100
+name GUEST_A
+exit
+!----------------------------------------------------------
+int range Gi1/0/1-3
+switchport mode trunk
+exit 
+
+!----------------------------------------------------------
+ip routing
+
+interface vlan 10
+ip address 192.168.10.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+!
+interface vlan 11
+ip address 192.168.11.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+!
+interface vlan 12
+ip address 192.168.12.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+!
+interface vlan 13
+ip address 192.168.13.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+
+int vlan 100
+description WIFI_GUEST
+ip address 192.168.100.1 255.255.255.0
+ip helper-address 192.168.20.15
+no shutdown
+exit
+!----------------------------------------------------------
+int Gi 1/0/23
+no switchport
+ip address 10.10.10.6 255.255.255.252
+no shutdown
+exit
+
+int Gi 1/0/24
+no switchport
+ip address 10.10.10.2 255.255.255.252
+no shutdown
+exit
+
+
+! OSPF
+router ospf 1
+router-id 2.2.2.2
+network 10.10.10.0 0.0.0.3 area 0
+network 10.10.10.4 0.0.0.3 area 0
+network 192.168.10.0 0.0.0.255 area 0
+network 192.168.11.0 0.0.0.255 area 0
+network 192.168.12.0 0.0.0.255 area 0
+network 192.168.13.0 0.0.0.255 area 0
+
+!guest
+network 192.168.100.0 0.0.0.255 area 0
+exit
+
+!last edit: đã thêm ip cho gi 23 để kết nối ospf với core-2
+
+
+
+
+
+
+
+
+
+
+

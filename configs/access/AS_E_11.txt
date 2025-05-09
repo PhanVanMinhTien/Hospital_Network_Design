@@ -1,0 +1,31 @@
+!
+!
+en
+conf t
+hostname AS-E-11
+
+vlan 80
+name KHOA_HUYET_HOC
+exit
+
+vlan 109
+name GUEST_E
+exit
+
+int range Fa0/1-23
+switchport mode access
+switchport access vlan 80
+spanning-tree portfast
+exit
+
+int Fa0/24
+switchport mode access
+switchport access vlan 109
+spanning-tree portfast
+exit
+
+int Gi 0/1
+description Uplink to DS-E
+switchport mode trunk
+exit
+

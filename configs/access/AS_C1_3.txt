@@ -1,0 +1,18 @@
+en
+conf t
+hostname C1-AS-2
+
+vlan 52
+name KHOA_HS_PTT
+exit
+
+interface range Fa0/1-24
+switchport mode access
+switchport access vlan 52
+spanning-tree portfast
+exit
+
+interface Gi0/1
+description Uplink to MLS C1
+switchport mode trunk
+exit

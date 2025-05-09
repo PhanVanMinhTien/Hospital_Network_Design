@@ -1,0 +1,18 @@
+en
+conf t
+hostname AS_CNTT_1
+
+vlan 99
+name IT
+exit
+
+int range Fa0/1-8
+switchport mode access
+switchport access vlan 99
+spanning-tree portfast
+exit
+
+interface Gi 0/1
+description Uplink to DS_CNTT_1
+switchport mode trunk
+exit

@@ -1,0 +1,58 @@
+!THIS IS THE ACCESS SWITCH OF: KHOA CAP CUU
+
+!----------------------------------------------------------
+en
+conf t
+hostname SW-1
+
+vlan 10
+name KHOA_CAP_CUU
+exit
+
+vlan 11
+name KHOA_KHAM_BENH
+exit
+
+vlan 12
+name KHOA_CHAM_SOC_SK_BAN_DAU
+exit
+
+vlan 13
+name KHOA_MAT
+exit
+
+vlan 100
+name GUEST_A
+exit
+
+interface range Fa0/1-22
+switchport mode access
+switchport access vlan 10
+spanning-tree portfast
+exit
+
+interface Fa0/24
+switchport mode access
+switchport access vlan 100
+
+
+!----------------------------------------------------------
+
+int Gi0/1
+description Uplink to MLS A
+switchport mode trunk
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+

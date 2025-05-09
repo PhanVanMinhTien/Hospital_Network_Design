@@ -1,0 +1,31 @@
+!
+!
+
+en
+conf t
+hostname AS-D-2
+
+vlan 67
+name KHOA_Y_HOC_HAT_NHAN
+exit
+
+vlan 108
+name GUEST_D
+exit
+
+int range Fa0/1-23
+switchport mode access
+switchport access vlan 67
+spanning-tree portfast
+exit
+
+int Fa0/24
+switchport mode access
+switchport access vlan 108
+spanning-tree portfast
+exit
+
+int Gi0/1
+description Uplink to MLS A
+switchport mode trunk
+exit

@@ -1,0 +1,31 @@
+!
+!
+en
+conf t
+hostname AS-E-6
+
+vlan 75
+name KHOA_PHONG_TAO_HINH
+exit
+
+vlan 109
+name GUEST_E
+exit
+
+int range Fa0/1-23
+switchport mode access
+switchport access vlan 75
+spanning-tree portfast
+exit
+
+int Fa0/24
+switchport mode access
+switchport access vlan 109
+spanning-tree portfast
+exit
+
+int Gi 0/1
+description Uplink to DS-E
+switchport mode trunk
+exit
+

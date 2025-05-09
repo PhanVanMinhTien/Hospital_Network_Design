@@ -1,0 +1,30 @@
+!
+!
+en
+conf t
+hostname AS-F-1
+
+vlan 83
+name KHOA_KHAM_XUAT_CANH
+exit
+
+vlan 110
+name GUEST_F
+exit
+
+int range Fa0/1-23
+switchport mode access
+switchport access vlan 83
+spanning-tree portfast
+exit
+
+int Fa 0/24
+switchport mode access
+switchport access vlan 110
+spanning-tree portfast
+exit
+
+int Gi 0/1
+description Uplink to DS-F
+switchport mode trunk
+exit

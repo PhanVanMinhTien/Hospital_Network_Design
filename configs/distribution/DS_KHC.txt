@@ -1,0 +1,121 @@
+!----------------------------------------------------------
+en
+conf t
+hostname DS-HANHCHINH
+vlan 40
+name PHONG_HANH_CHINH
+exit
+vlan 41
+name PHONG_TCHUC_CBO
+exit
+vlan 42
+name PHONG_KH_THOP
+exit
+vlan 43 
+name PHONG_DIEU_DUONG
+exit
+vlan 44
+name PHONG_TCHINH_KTOAN
+exit
+vlan 45
+name PHONG_BVCTNB_BVE
+exit
+vlan 46
+name PHONG_QLY_CHAT_LUONG
+exit
+vlan 47
+name PHONG_CTXH
+exit
+vlan 48
+name DV_DNGOAI_TTHI
+exit
+vlan 49
+name DV_DICH_VU
+exit
+!----------------------------------------------------------
+interface range Gi 1/0/1-7
+switchport mode trunk
+exit
+
+!----------------------------------------------------------
+ip routing 
+
+interface vlan 40
+ip address 192.168.40.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 41
+ip address 192.168.41.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 42
+ip address 192.168.42.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 43
+ip address 192.168.43.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 44
+ip address 192.168.44.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 45
+ip address 192.168.45.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 46
+ip address 192.168.46.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 47
+ip address 192.168.47.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 48
+ip address 192.168.48.1 255.255.255.0
+no shutdown
+exit
+
+interface vlan 49
+ip address 192.168.49.1 255.255.255.0
+no shutdown
+exit
+!----------------------------------------------------------
+int Gi 1/0/23
+no switchport 
+ip address 13.13.13.6 255.255.255.252
+no shutdown
+exit
+
+int Gi 1/0/24
+no switchport
+ip address 13.13.13.2 255.255.255.252
+no shutdown
+exit
+
+!OSPF 
+router ospf 1
+router-id 5.5.5.5
+network 13.13.13.0 0.0.0.3 area 0
+network 13.13.13.4 0.0.0.3 area 0
+
+network 192.168.40.0 0.0.0.255 area 0
+network 192.168.41.0 0.0.0.255 area 0
+network 192.168.42.0 0.0.0.255 area 0
+network 192.168.43.0 0.0.0.255 area 0
+network 192.168.44.0 0.0.0.255 area 0
+network 192.168.45.0 0.0.0.255 area 0
+network 192.168.46.0 0.0.0.255 area 0
+network 192.168.47.0 0.0.0.255 area 0
+network 192.168.48.0 0.0.0.255 area 0
+network 192.168.49.0 0.0.0.255 area 0
+exit

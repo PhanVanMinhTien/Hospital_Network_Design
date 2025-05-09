@@ -1,0 +1,47 @@
+en
+conf t
+hostname EDGE_2
+
+!
+interface Gi 0/0
+ip address 110.0.0.1 255.255.255.0
+ip nat outside
+no shutdown
+exit
+
+!
+int Gi 0/1
+ip address 192.168.1.5 255.255.255.252
+ip nat inside
+no shutdown
+exit
+
+int Gi 0/2
+ip address 192.168.1.25 255.255.255.252
+ip nat inside
+no shutdown
+exit
+
+!OSPF
+router ospf 1
+router-id 1.1.1.6
+network 192.168.1.4 0.0.0.3 area 0
+network 192.168.1.24 0.0.0.3 area 0
+default-information originate
+exit
+
+!ACL NAT:
+access-list 1 deny 192.168.1.4 0.0.0.3
+access-list 1 deny 192.168.1.16 0.0.0.3
+access-list 1 deny 192.168.1.20 0.0.0.3
+access-list 1 deny 192.168.1.28 0.0.0.3
+access-list 1 permit 192.168.0.0 0.0.255.255
+
+!NAT Overload (PAT)
+ip nat inside source list 1 interface Gi0/0 overload
+
+!Default route ra Internet
+ip route 0.0.0.0 0.0.0.0 110.0.0.2
+
+end
+wr mem

@@ -1,0 +1,31 @@
+!
+!
+en
+conf t
+hostname AS-E-5
+
+vlan 74
+name KHOA_NGHIEN_CUU_VA_DIEU_TRI_VIEM_GAN
+exit
+
+vlan 109
+name GUEST_E
+exit
+
+int range Fa0/1-23
+switchport mode access
+switchport access vlan 74
+spanning-tree portfast
+exit
+
+int Fa0/24
+switchport mode access
+switchport access vlan 109
+spanning-tree portfast
+exit
+
+int Gi 0/1
+description Uplink to DS-E
+switchport mode trunk
+exit
+

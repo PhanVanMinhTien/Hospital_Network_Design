@@ -1,0 +1,28 @@
+en
+
+conf t
+hostname ASA-3
+
+int Gi 1/1 
+nameif inside
+security-level 100
+ip address 20.20.20.5 255.255.255.252
+no shutdown
+
+int Gi 1/8
+nameif outside
+security-level 0
+ip address 20.20.20.2 255.255.255.252
+no shutdown
+
+router ospf 1
+router-id 20.20.20.1
+network 20.20.20.0 255.255.255.252 area 0
+network 20.20.20.4 255.255.255.252 area 0
+
+access-list INSIDE-OUT extended permit ip any any
+access-list INSIDE-OUT extended permit icmp any any
+access-list OUTSIDE-IN extended permit icmp any any
+
+access-group INSIDE-OUT in interface inside
+access-group OUTSIDE-IN in interface outside
