@@ -43,7 +43,8 @@ exit
 
 interface vlan 110
 ip address 192.168.110.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 
@@ -72,4 +73,17 @@ network 192.168.83.0 0.0.0.255 area 0
 network 192.168.110.0 0.0.0.255 area 0
 exit
  
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!! ACL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ip access-list extended ACL_GUEST_F
+ permit udp any eq 68 any eq 67
+ deny ip 192.168.110.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip 192.168.110.0 0.0.0.255 any
+exit
+
+interface vlan 110
+ ip access-group ACL_GUEST_F in
+exit
 

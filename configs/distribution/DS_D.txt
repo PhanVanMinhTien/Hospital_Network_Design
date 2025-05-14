@@ -36,21 +36,25 @@ ip routing
 interface vlan 66
 ip address 192.168.66.1 255.255.255.0
 no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 67
 ip address 192.168.67.1 255.255.255.0
 no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 68
 ip address 192.168.68.1 255.255.255.0
 no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 69
 ip address 192.168.69.1 255.255.255.0
 no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 
@@ -58,7 +62,8 @@ exit
 int vlan 108
 description WIFI_GUEST_D
 ip address 192.168.108.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shut
 exit
 
@@ -88,4 +93,16 @@ network 192.168.108.0 0.0.0.255 area 0
 exit
 
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!! ACL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+ip access-list extended ACL_GUEST_D
+ permit udp any eq 68 any eq 67
+ deny ip 192.168.108.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip 192.168.108.0 0.0.0.255 any
+exit
+
+interface vlan 108
+ ip access-group ACL_GUEST_D in
+exit

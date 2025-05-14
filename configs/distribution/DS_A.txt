@@ -33,32 +33,38 @@ ip routing
 
 interface vlan 10
 ip address 192.168.10.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 !
 interface vlan 11
 ip address 192.168.11.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 !
 interface vlan 12
 ip address 192.168.12.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 !
 interface vlan 13
 ip address 192.168.13.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 
 int vlan 100
 description WIFI_GUEST
 ip address 192.168.100.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
+ip access-group ACL_GUEST_A in
 no shutdown
 exit
 !----------------------------------------------------------
@@ -85,19 +91,20 @@ network 192.168.11.0 0.0.0.255 area 0
 network 192.168.12.0 0.0.0.255 area 0
 network 192.168.13.0 0.0.0.255 area 0
 
-!guest
 network 192.168.100.0 0.0.0.255 area 0
 exit
 
-!last edit: đã thêm ip cho gi 23 để kết nối ospf với core-2
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!! ACL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+ip access-list extended ACL_GUEST_A
+ permit udp any eq 68 any eq 67
+ deny ip 192.168.100.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip 192.168.100.0 0.0.0.255 any
+exit
 
-
-
-
-
-
-
-
-
+interface vlan 100
+ ip access-group ACL_GUEST_A in
+exit

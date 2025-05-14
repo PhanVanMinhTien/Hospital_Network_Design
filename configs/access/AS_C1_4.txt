@@ -1,6 +1,6 @@
 en
 conf t
-hostname C1-AS-2
+hostname C1-AS-4
 
 vlan 53
 name KHOA_PTMM

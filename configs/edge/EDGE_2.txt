@@ -1,6 +1,6 @@
 en
 conf t
-hostname EDGE_2
+hostname EDGE-2
 
 !
 interface Gi 0/0
@@ -11,13 +11,13 @@ exit
 
 !
 int Gi 0/1
-ip address 192.168.1.5 255.255.255.252
+ip address 10.0.0.9 255.255.255.252
 ip nat inside
 no shutdown
 exit
 
 int Gi 0/2
-ip address 192.168.1.25 255.255.255.252
+ip address 10.0.0.13 255.255.255.252
 ip nat inside
 no shutdown
 exit
@@ -25,16 +25,11 @@ exit
 !OSPF
 router ospf 1
 router-id 1.1.1.6
-network 192.168.1.4 0.0.0.3 area 0
-network 192.168.1.24 0.0.0.3 area 0
+network 10.0.0.8 0.0.0.3 area 0
+network 10.0.0.12 0.0.0.3 area 0
 default-information originate
 exit
 
-!ACL NAT:
-access-list 1 deny 192.168.1.4 0.0.0.3
-access-list 1 deny 192.168.1.16 0.0.0.3
-access-list 1 deny 192.168.1.20 0.0.0.3
-access-list 1 deny 192.168.1.28 0.0.0.3
 access-list 1 permit 192.168.0.0 0.0.255.255
 
 !NAT Overload (PAT)
@@ -45,3 +40,4 @@ ip route 0.0.0.0 0.0.0.0 110.0.0.2
 
 end
 wr mem
+

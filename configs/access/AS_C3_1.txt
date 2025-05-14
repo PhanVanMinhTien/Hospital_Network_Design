@@ -14,7 +14,7 @@ switchport mode access
 switchport access vlan 64
 spanning-tree portfast
 exit
-interface Fa0/23
+interface Fa0/24
 switchport mode access
 switchport access vlan 107
 spanning-tree portfast

@@ -85,14 +85,14 @@ exit
 int Gi 1/0/23
 description Connect to ASA_1
 no switchport
-ip address 192.168.1.14 255.255.255.252
+ip address 10.0.0.22 255.255.255.252
 no shutdown
 exit
 
 int Gi 1/0/24
 description Connect to ASA_2
 no switchport 
-ip address 192.168.1.18 255.255.255.252
+ip address 10.0.0.26 255.255.255.252
 no shutdown
 exit
 
@@ -113,7 +113,7 @@ network 19.19.19.4 0.0.0.3 area 0
 network 20.20.20.4 0.0.0.3 area 0
 
 !ospf connecting to ASA
-network 192.168.1.12 0.0.0.3 area 0
-network 192.168.1.16 0.0.0.3 area 0
+network 10.0.0.20 0.0.0.3 area 0
+network 10.0.0.24 0.0.0.3 area 0
 
 exit

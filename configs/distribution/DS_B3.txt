@@ -37,23 +37,34 @@ ip routing
 
 interface vlan 31
 ip address 192.168.31.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 
 interface vlan 32
 ip address 192.168.32.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 
 interface vlan 33
 ip address 192.168.33.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 
 interface vlan 34
 ip address 192.168.34.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 
-interface vlan 102
-ip address 192.168.102.1 255.255.255.0
-ip helper-address 192.168.20.15
+no interface vlan 102
+
+interface vlan 103
+ip address 192.168.103.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 !----------------------------------------------------------
@@ -83,3 +94,18 @@ network 192.168.34.0 0.0.0.255 area 0
 
 network 192.168.103.0 0.0.0.255
 exit
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!! ACL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ip access-list extended ACL_GUEST_B3
+ permit udp any eq 68 any eq 67
+ deny ip 192.168.103.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip 192.168.103.0 0.0.0.255 any
+exit
+
+
+interface vlan 103
+ ip access-group ACL_GUEST_B3 in
+exit
+

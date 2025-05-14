@@ -1,18 +1,17 @@
-!ASA 1
-
+!! ASA 1
 
 int Gi 1/1
 description Connect to CORE_1
-nameif inside1
+nameif INSIDE1
 security-level 100
-ip address 192.168.1.9 255.255.255.252
+ip address 10.0.0.17 255.255.255.252
 no shutdown
 exit 
 int Gi 1/2
 description Connect to CORE_2
-nameif inside2
+nameif INSIDE2
 security-level 100
-ip address 192.168.1.13 255.255.255.252
+ip address 10.0.0.21 255.255.255.252
 no shutdown
 exit
 
@@ -20,41 +19,56 @@ int Gi 1/3
 description Connect to DMZ
 nameif DMZ
 security-level 70
-ip address 192.168.89.1 255.255.255.0
+ip address 172.16.100.1 255.255.255.0
 no shutdown
 exit
 
 int Gi 1/7
 description Connect to EDGE_2
-nameif outside2
+nameif OUTSIDE2
 security-level 0
-ip address 192.168.1.26 255.255.255.252
+ip address 10.0.0.14 255.255.255.252
 no shutdown
 exit
 
 int Gi 1/8
 description Connect to EDGE_1
-nameif outside1
+nameif OUTSIDE1
 security-level 0
-ip address 192.168.1.2 255.255.255.252
+ip address 10.0.0.2 255.255.255.252
 no shutdown
 exit 
 
 router ospf 1
 router-id 1.1.1.3
-network 192.168.1.0 255.255.255.252 area 0
-network 192.168.1.8 255.255.255.252 area 0
-network 192.168.1.12 255.255.255.252 area 0
-network 192.168.1.24 255.255.255.252 area 0
+network 10.0.0.0 255.255.255.252 area 0
+network 10.0.0.12 255.255.255.252 area 0
+network 10.0.0.16 255.255.255.252 area 0
+network 10.0.0.20 255.255.255.252 area 0
 
-
+network 172.16.100.0 255.255.255.0 area 0
 
 !!
-access-list INSIDE-OUT extended permit ip any any
-access-list INSIDE-OUT extended permit icmp any any
-access-list OUTSIDE-IN extended permit icmp any any
+access-list DMZ-ACCESS extended permit icmp any any
+access-list DMZ-ACCESS extended permit tcp any any eq www
+access-list DMZ-ACCESS extended permit tcp any any eq 443
+access-list DMZ-ACCESS extended permit udp any any eq domain
+access-list DMZ-ACCESS extended permit tcp any any eq domain
+access-list DMZ-ACCESS extended permit udp any any eq bootps
+access-list DMZ-ACCESS extended permit udp any any eq bootpc
+access-list DMZ-ACCESS extended permit ip any any
+!
+!
+access-group DMZ-ACCESS in interface DMZ
+access-group DMZ-ACCESS in interface outside1
+access-group DMZ-ACCESS in interface outside2
 
+
+access-list INSIDE-OUT extended permit ip any any
 access-group INSIDE-OUT in interface inside1
 access-group INSIDE-OUT in interface inside2
+
+access-list OUTSIDE-IN extended permit ip any any
 access-group OUTSIDE-IN in interface outside1
 access-group OUTSIDE-IN in interface outside2
+

@@ -62,52 +62,75 @@ ip routing
 
 interface vlan 70
 ip address 192.168.70.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 71
 ip address 192.168.71.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 72
 ip address 192.168.72.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 73
 ip address 192.168.73.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 74
 ip address 192.168.74.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 75
 ip address 192.168.75.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 76
 ip address 192.168.76.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 77
 ip address 192.168.77.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 78
 ip address 192.168.78.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 79
 ip address 192.168.79.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 interface vlan 80
 ip address 192.168.80.1 255.255.255.0
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 
 int vlan 109
 ip address 192.168.109.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shut
 exit
 
@@ -144,5 +167,16 @@ network 192.168.80.0 0.0.0.255 area 0
 network 192.168.109.0 0.0.0.255 area 0
 exit
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!! ACL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+ip access-list extended ACL_GUEST_E
+ permit udp any eq 68 any eq 67
+ deny ip 192.168.109.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip 192.168.109.0 0.0.0.255 any
+exit
 
+interface vlan 109
+ ip access-group ACL_GUEST_E in
+exit

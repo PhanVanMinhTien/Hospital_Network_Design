@@ -84,7 +84,8 @@ exit
 
 int vlan 106
 ip address 192.168.106.1 255.255.255.0
-ip helper-address 192.168.20.15
+no ip helper-address 192.168.20.15
+ip helper-address 172.16.100.10
 no shutdown
 exit
 
@@ -137,4 +138,17 @@ spanning-tree vlan 63 priority 4096
 spanning-tree vlan 64 priority 8192
 spanning-tree vlan 65 priority 8192
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!! ACL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ip access-list extended ACL_GUEST_C2
+ permit udp any eq 68 any eq 67
+ deny ip 192.168.106.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip 192.168.106.0 0.0.0.255 any
+exit
+
+interface vlan 106
+ ip access-group ACL_GUEST_C2 in
+exit
 
